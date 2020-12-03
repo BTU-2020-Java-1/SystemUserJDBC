@@ -1,4 +1,4 @@
-package ge.edu.btu.user.model;
+package ge.edu.btu.server.model;
 
 public class SystemUser {
 

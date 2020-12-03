@@ -1,6 +1,6 @@
-package ge.edu.btu.user.dao;
+package ge.edu.btu.server.dao;
 
-import ge.edu.btu.user.model.SystemUser;
+import ge.edu.btu.server.model.SystemUser;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class SystemUserDAOImpl implements SystemUserDAO {
         Driver driver = new org.postgresql.Driver();
         DriverManager.registerDriver(driver);
 
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BTUUser", "postgres", "1");
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BTU_Test", "postgres", "1");
     }
 
     @Override
@@ -27,11 +27,6 @@ public class SystemUserDAOImpl implements SystemUserDAO {
         preparedStatement.executeUpdate();
 
         preparedStatement.close();
-    }
-
-    @Override
-    public void addUsers(List<SystemUser> users) {
-
     }
 
     @Override
@@ -66,6 +61,19 @@ public class SystemUserDAOImpl implements SystemUserDAO {
         return list;
     }
 
+    @Override
+    public boolean checkIfUserExists(String username, String password) throws Exception {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT password FROM system_user WHERE username = '" + username + "'");
+        if (resultSet.next()) {
+            String dbPassword = resultSet.getString("password");
+            return dbPassword.equals(password);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void closeConnection() throws Exception {
         connection.close();
     }

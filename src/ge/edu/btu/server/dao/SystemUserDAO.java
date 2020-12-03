@@ -1,14 +1,12 @@
-package ge.edu.btu.user.dao;
+package ge.edu.btu.server.dao;
 
-import ge.edu.btu.user.model.SystemUser;
+import ge.edu.btu.server.model.SystemUser;
 
 import java.util.List;
 
 public interface SystemUserDAO {
 
     void addUser(SystemUser user) throws Exception;
-
-    void addUsers(List<SystemUser> users);
 
     void deleteById(long id) throws Exception;
 
@@ -17,4 +15,6 @@ public interface SystemUserDAO {
     List<SystemUser> getAll() throws Exception;
 
     void closeConnection() throws Exception;
+
+    boolean checkIfUserExists(String username, String password) throws Exception;
 }
