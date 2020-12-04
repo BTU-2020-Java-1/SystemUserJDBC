@@ -50,6 +50,7 @@ public class Client {
 
                     String message = (String) in.readObject();
                     System.out.println(message);
+                    break;
                 case "2" :
                     System.out.println("სახელი:");
                     username = scanner.nextLine();
@@ -65,12 +66,14 @@ public class Client {
                     } else {
                         System.out.println("Failure");
                     }
+                    break;
                 case "3" :
                     out.writeObject(Command.GET_ALL_USER);
                     List<SystemUserDTO> dtos = (List<SystemUserDTO>) in.readObject();
                     for (SystemUserDTO dto : dtos) {
                         System.out.println(dto.getUsername() + " " + dto.isActive());
                     }
+                    break;
             }
         }
     }

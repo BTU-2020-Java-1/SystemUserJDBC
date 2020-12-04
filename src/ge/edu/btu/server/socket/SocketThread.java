@@ -45,6 +45,7 @@ public class SocketThread extends Thread {
                         }
                         out.reset();
                         out.flush();
+                        break;
                     case AUTHORIZE:
                         username = (String) in.readObject();
                         String password = (String) in.readObject();
@@ -52,16 +53,19 @@ public class SocketThread extends Thread {
                         out.writeObject(authorized);
                         out.reset();
                         out.flush();
+                        break;
                     case GET_ALL_USER:
                         List<SystemUserDTO> dtos = systemUserService.getAllUser();
                         out.writeObject(dtos);
                         out.reset();
                         out.flush();
+                        break;
                     case EXIT:
                         out.close();
                         in.close();
                         socket.close();
                         finished = true;
+                        break;
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
